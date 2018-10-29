@@ -3,6 +3,10 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 分页结果
+ * @author 刘雨明
+ */
 public class PageResult implements Serializable{
 	
 	private static final long serialVersionUID = -6728074099349435029L;

@@ -13,7 +13,7 @@ import entity.PageResult;
  */
 public interface BrandService {
 
-	public List<TbBrand> findAll();
+	List<TbBrand> findAll();
 	
 	/**
 	 * 品牌分页
@@ -21,6 +21,36 @@ public interface BrandService {
 	 * @param pageSize	当前页面大小
 	 * @return
 	 */
-	public PageResult findPage(int pageNum, int pageSize);
-	
+	PageResult findPage(int pageNum, int pageSize);
+
+    /**
+     * 增加商品
+     * @param brand
+     */
+    void add(TbBrand brand);
+
+    /**
+     * 根据id查找商品
+     * @param id
+     * @return
+     */
+    TbBrand findOne(Long id);
+
+    /**
+     * 更新修改商品
+     * @param brand
+     */
+    void update(TbBrand brand);
+
+    /**
+     * 批量删除商品
+     * @param ids
+     */
+    void delete(Long[] ids);
+
+    /**
+     * 查找商品
+     * @return
+     */
+    PageResult findPage(TbBrand brand, int pageNum, int pageSize);
 }

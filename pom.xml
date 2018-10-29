@@ -12,7 +12,7 @@
         <module>pinyougou-pojo</module>
         <module>pinyougou-dao</module>
         <module>pinyougou-sellergoods-interface</module>
-        <module>pinyou-goumanager-web</module>
+        <module>pinyougou-manager-web</module>
         <module>pinyougou-sellergoods-service</module>
     </modules>
 
