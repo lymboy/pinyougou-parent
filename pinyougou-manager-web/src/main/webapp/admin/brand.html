@@ -18,108 +18,11 @@
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
     <!-- 分页组件结束 -->
 
-    <script type="text/javascript">
-        var app = angular.module("pinyougou", ['pagination']);
-        app.controller('brandController', function ($scope, $http) {
+    <script type="text/javascript" src="../js/base_pagination.js" ></script>
+    <script type="text/javascript" src="../js/service/brandService.js" ></script>
+    <script type="text/javascript" src="../js/controller/baseController.js" ></script>
+    <script type="text/javascript" src="../js/controller/brandController.js" ></script>
 
-            $scope.findAll = function () {
-                $http.get('../brand/findAll.do').success(
-                    function (response) {
-                        $scope.list = response;
-                    }
-                );
-            };
-
-            //重新加载列表 数据
-            $scope.reloadList = function () {
-                //切换页码
-                $scope.search($scope.paginationConf.currentPage,
-                    $scope.paginationConf.itemsPerPage);
-            };
-
-            //分页控件配置
-            $scope.paginationConf = {
-                currentPage: 1,
-                totalItems: 10,
-                itemsPerPage: 10,
-                perPageOptions: [10, 20, 30, 40, 50],
-                onChange: function () {
-                    $scope.reloadList();//重新加载
-                }
-            };
-
-            //分页
-            $scope.findPage = function (page, size) {
-                $http.get('../brand/findPage.do?page=' + page + '&size=' + size).success(
-                    function (response) {
-                        $scope.list = response.rows;
-                        $scope.paginationConf.totalItems = response.total;//更新总记录数
-                    }
-                );
-            };
-            
-            // 新增商品
-            $scope.save = function () {
-                var methodName = "add";
-                if ($scope.entity.id != null) {
-                    methodName = "update";
-                }
-                $http.post("../brand/"+methodName+".do", $scope.entity).success(
-                  function (response) {
-                      if (response.success) {
-                          $scope.reloadList();
-                      } else {
-                          alert(response.message);
-                      }
-                  }
-                );
-            };
-
-            // 查询实体
-            $scope.findOne = function (id) {
-                $http.get("../brand/findOne.do?id="+id).success(
-                    function (response) {
-                        $scope.entity = response;
-                    }
-                )
-            };
-            
-            $scope.seleteIds = [];
-            $scope.updateSeletion = function ($event, id) {
-                if ($event.target.checked) {
-                    $scope.seleteIds.push(id);
-                } else {
-                    var index = $scope.seleteIds.indexOf(id);
-                    $scope.seleteIds.splice(index, 1);
-                }
-            };
-
-            // 删除
-            $scope.dele = function () {
-                $http.get('../brand/delete.do?ids='+$scope.seleteIds).success(
-                    function (response) {
-                        if (response.success) {
-                            $scope.reloadList();
-                        } else {
-                            alert("删除失败");
-                        }
-                    }
-                );
-            };
-
-            // 条件查询
-            $scope.searchEntity = {};
-            $scope.search = function (page, size) {
-                $http.post('../brand/search.do?page='+page+'&size='+size, $scope.searchEntity).success(
-                    function (response) {
-                        $scope.list = response.rows;
-                        $scope.paginationConf.totalItems = response.total;//更新总记录数
-                    }  
-                );
-            };
-        });
-
-    </script>
 
 
 </head>
@@ -172,7 +75,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input type="checkbox" ng-click="updateSeletion($event, entity.id)"></td>
+                <td><input type="checkbox" ng-click="updateSelection($event, entity.id)"></td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.name}}</td>
                 <td>{{entity.firstChar}}</td>
@@ -186,7 +89,6 @@
         </table>
         <!--数据列表/-->
         <tm-pagination conf="paginationConf"></tm-pagination>
-        {{seleteIds}}
     </div>
     <!-- 数据表格 /-->
 </div>

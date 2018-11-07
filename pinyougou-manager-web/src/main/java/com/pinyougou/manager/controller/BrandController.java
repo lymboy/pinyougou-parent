@@ -1,17 +1,16 @@
 package com.pinyougou.manager.controller;
 
-import java.util.List;
-
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.sellergoods.service.BrandService;
+import entity.PageResult;
 import entity.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.pojo.TbBrand;
-import com.pinyougou.sellergoods.service.BrandService;
-
-import entity.PageResult;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/brand")
@@ -74,5 +73,14 @@ public class BrandController {
     public PageResult search(@RequestBody TbBrand brand, int page, int size) {
         PageResult pageResult = brandService.findPage(brand, page, size);
         return pageResult;
+    }
+
+    /**
+     * 返回下拉列表
+     * @return
+     */
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList() {
+	    return brandService.selectOptionList();
     }
 }
