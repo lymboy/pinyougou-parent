@@ -19,11 +19,13 @@
     <http use-expressions="false">
         <!-- 当前用户必须有ROLE_USER的角色才能访问根目录及其子目录下的资源 -->
 		<intercept-url pattern="/**" access="ROLE_ADMIN"/>
-        <form-login login-page="/login.html" default-target-url="/admin/index.jsp" authentication-failure-url="/longin.html"/>
+        <form-login login-page="/login.html" default-target-url="/admin/index.html" authentication-failure-url="/longin.html" always-use-default-target="true"/>
         <csrf disabled="true" />
+        <!-- 允许使用内部框架页 -->
         <headers>
             <frame-options policy="SAMEORIGIN" />
         </headers>
+        <logout />
 	</http>
 
     <authentication-manager>
